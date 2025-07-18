@@ -95,12 +95,12 @@ export class ServiceFormComponent implements OnInit {
         : this.serviceService.create(service);
 
       request.subscribe(() => {
-        this.router.navigate(['/services']);
+        this.router.navigate(['/admin/services']);
       });
     }
   }
 
   cancel(): void {
-    this.router.navigate(['/services']);
+    this.router.navigate(['/admin/services']);
   }
 }

@@ -59,7 +59,7 @@ export class ServiceListComponent implements OnInit {
   }
 
   editService(service: ServiceE): void {
-    this.router.navigate([`/services/edit/${service.id.codSoc}/${service.id.codServ}`]);
+    this.router.navigate([`/admin/services/edit/${service.id.codSoc}/${service.id.codServ}`]);
   }
 
   deleteService(service: ServiceE): void {

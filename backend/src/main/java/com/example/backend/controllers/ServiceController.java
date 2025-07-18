@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/services")
-@CrossOrigin(origins = "*") // à adapter selon ton frontend
 public class ServiceController {
 
     @Autowired

@@ -1,24 +1,27 @@
 import { Component } from '@angular/core';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <nav>
-      <a routerLink="/personnels">Personnel</a> |
-      <a routerLink="/services">Services</a>
-    </nav>
-    <router-outlet></router-outlet>
-  `,
-  styles: [`
-    nav {
-      padding: 16px;
-      background-color: #f8f8f8;
-    }
-    a {
-      margin-right: 10px;
-    }
-  `]
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'front';
+
+  constructor(private authService: AuthService) {}
+
+  isAuthenticated(): boolean {
+    return this.authService.isAuthenticated();
+  }
+
+  getUsername(): string {
+    const admin = this.authService.getCurrentAdmin();
+    return admin ? `${admin.prenom} ${admin.nom}` : '';
+  }
+
+  logout(): void {
+    this.authService.logout();
+    window.location.href = '/auth/login';
+  }
 }

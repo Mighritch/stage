@@ -74,6 +74,8 @@ public class Personnel {
 
     private String etatAct;
 
+    private String role;
+
     @ManyToOne
     @JoinColumns({
             @JoinColumn(
@@ -381,6 +383,14 @@ public class Personnel {
 
     public void setEtatAct(String etatAct) {
         this.etatAct = etatAct;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public ServiceE getService() {

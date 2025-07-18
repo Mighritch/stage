@@ -20,7 +20,6 @@ import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/api/personnels")
-@CrossOrigin(origins = "*")
 public class PersonnelController {
 
     @Autowired
@@ -66,21 +65,18 @@ public class PersonnelController {
 
         document.open();
 
-        // Titre
         Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.DARK_GRAY);
         Paragraph title = new Paragraph("LISTE DU PERSONNEL", titleFont);
         title.setAlignment(Element.ALIGN_CENTER);
         title.setSpacingAfter(20f);
         document.add(title);
 
-        // Tableau
         PdfPTable table = new PdfPTable(5);
         table.setWidthPercentage(100);
         table.setWidths(new float[]{3, 3, 2, 2, 2});
 
-        // En-têtes
         Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.WHITE);
-        Stream.of("NOM", "PRÉNOM", "CIN", "MATRICULE", "SERVICE").forEach(header -> {
+        Stream.of("NOM", "PRÉNOM", "CIN", "MATRICULE", "RÔLE").forEach(header -> {
             PdfPCell cell = new PdfPCell();
             cell.setBackgroundColor(new BaseColor(33, 150, 243));
             cell.setPadding(8);
@@ -88,14 +84,13 @@ public class PersonnelController {
             table.addCell(cell);
         });
 
-        // Données
         Font dataFont = FontFactory.getFont(FontFactory.HELVETICA, 10);
         for (Personnel p : personnels) {
             addCell(table, p.getNomPers(), dataFont);
             addCell(table, p.getPrenPers(), dataFont);
             addCell(table, p.getCin() != null ? p.getCin() : "-", dataFont);
             addCell(table, p.getId().getMatPers(), dataFont);
-            addCell(table, p.getService() != null ? p.getService().getId().getCodServ() : "-", dataFont);
+            addCell(table, p.getRole() != null ? p.getRole() : "-", dataFont);
         }
 
         document.add(table);

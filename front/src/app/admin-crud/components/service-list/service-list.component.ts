@@ -55,7 +55,7 @@ export class ServiceListComponent implements OnInit {
   }
 
   navigateToCreate(): void {
-    this.router.navigate(['/services/create']);
+    this.router.navigate(['/admin/services/create']);
   }
 
   editService(service: ServiceE): void {

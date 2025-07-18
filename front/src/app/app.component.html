@@ -1,5 +1,23 @@
-<nav>
-  <a routerLink="/personnels">Personnel</a> |
-  <a routerLink="/services">Services</a>
-</nav>
-<router-outlet></router-outlet>
+<mat-toolbar color="primary">
+  <span>Application Admin</span>
+
+  <!-- Menu visible seulement quand connecté -->
+  <nav *ngIf="isAuthenticated()" class="nav-links">
+    <a mat-button routerLink="/admin/personnels" routerLinkActive="active-link">Personnel</a>
+    <a mat-button routerLink="/admin/services" routerLinkActive="active-link">Services</a>
+  </nav>
+
+  <span class="spacer"></span>
+
+  <!-- Section utilisateur -->
+  <div *ngIf="isAuthenticated()" class="user-section">
+    <span class="username">Bonjour, {{getUsername()}}</span>
+    <button mat-icon-button (click)="logout()" matTooltip="Déconnexion">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<main>
+  <router-outlet></router-outlet>
+</main>

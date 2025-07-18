@@ -215,6 +215,17 @@ import { ServiceE, ServiceId } from '../../models/service.model';
         <input matInput formControlName="etatAct">
       </mat-form-field>
       <mat-form-field>
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="role" required>
+          <mat-option value="Employee">Employee</mat-option>
+          <mat-option value="Manager">Manager</mat-option>
+          <mat-option value="Admin">Admin</mat-option>
+        </mat-select>
+        <mat-error *ngIf="personnelForm.get('role')?.hasError('required')">
+          Role is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
         <mat-label>Service</mat-label>
         <mat-select formControlName="serviceCodServ" required>
           <mat-option *ngFor="let service of services" [value]="service.id.codServ">
@@ -302,6 +313,7 @@ export class PersonnelFormComponent implements OnInit {
       datMotif: [''],
       datNais: [''],
       etatAct: [''],
+      role: ['', Validators.required],
       serviceCodServ: ['', Validators.required]
     });
   }
@@ -364,6 +376,7 @@ export class PersonnelFormComponent implements OnInit {
             datMotif: personnel.datMotif ? new Date(personnel.datMotif) : null,
             datNais: personnel.datNais ? new Date(personnel.datNais) : null,
             etatAct: personnel.etatAct || '',
+            role: personnel.role || '',
             serviceCodServ: personnel.service?.id.codServ || ''
           });
         },
@@ -422,6 +435,7 @@ export class PersonnelFormComponent implements OnInit {
         datMotif: formValue.datMotif ? new Date(formValue.datMotif).toISOString().split('T')[0] : null,
         datNais: formValue.datNais ? new Date(formValue.datNais).toISOString().split('T')[0] : null,
         etatAct: formValue.etatAct || null,
+        role: formValue.role || null,
         service: selectedService ? { id: { codSoc: selectedService.id.codSoc, codServ: selectedService.id.codServ }, libServ: selectedService.libServ } : undefined
       };
 

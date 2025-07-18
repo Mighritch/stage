@@ -14,7 +14,7 @@ export class PersonnelService {
 
   getAll(): Observable<Personnel[]> {
     return this.http.get<Personnel[]>(this.apiUrl).pipe(
-        catchError(() => of([])) // Retourne un tableau vide en cas d’erreur
+      catchError(() => of([]))
     );
   }
 

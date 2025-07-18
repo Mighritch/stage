@@ -43,5 +43,8 @@ export interface Personnel {
   datMotif?: string | null;
   datNais?: string | null;
   etatAct?: string | null;
-  service?: { id: ServiceId; libServ?: string };
+  service?: { 
+    id: ServiceId; 
+    libServ?: string 
+  };
 }

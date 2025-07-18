@@ -8,6 +8,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminCrudRoutingModule } from './admin-crud-routing.module';
 import { PersonnelListComponent } from './components/personnel-list/personnel-list.component';
@@ -25,6 +30,10 @@ import { ServiceFormComponent } from './components/service-form/service-form.com
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    AdminCrudRoutingModule,
+    
+    // Modules Material
     MatTableModule,
     MatButtonModule,
     MatFormFieldModule,
@@ -32,8 +41,11 @@ import { ServiceFormComponent } from './components/service-form/service-form.com
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    HttpClientModule,
-    AdminCrudRoutingModule
+    MatIconModule,
+    MatPaginatorModule,
+    MatTooltipModule,
+    MatCardModule,
+    MatToolbarModule
   ]
 })
 export class AdminCrudModule { }

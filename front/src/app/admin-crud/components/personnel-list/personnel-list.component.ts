@@ -37,12 +37,6 @@ import { saveAs } from 'file-saver';
           <td mat-cell *matCellDef="let personnel">{{ personnel.cin || '-' }}</td>
         </ng-container>
 
-        <!-- Colonne Matricule -->
-        <ng-container matColumnDef="matricule">
-          <th mat-header-cell *matHeaderCellDef>Matricule</th>
-          <td mat-cell *matCellDef="let personnel">{{ personnel.id.matPers }}</td>
-        </ng-container>
-
         <!-- Colonne Rôle -->
         <ng-container matColumnDef="role">
           <th mat-header-cell *matHeaderCellDef>Rôle</th>
@@ -103,7 +97,7 @@ import { saveAs } from 'file-saver';
 })
 export class PersonnelListComponent implements OnInit {
   personnels: Personnel[] = [];
-  displayedColumns: string[] = ['nomPers', 'prenPers', 'cin', 'matricule', 'role', 'actions'];
+  displayedColumns: string[] = ['nomPers', 'prenPers', 'cin', 'role', 'actions'];
 
   constructor(
     private personnelService: PersonnelService, 
@@ -129,9 +123,10 @@ export class PersonnelListComponent implements OnInit {
     this.router.navigate(['/admin/personnels/create']);
   }
 
- editPersonnel(personnel: Personnel): void {
-  this.router.navigate([`/admin/personnels/edit/${personnel.id.codSoc}/${personnel.id.matPers}`]);
-}
+  editPersonnel(personnel: Personnel): void {
+    this.router.navigate([`/admin/personnels/edit/${personnel.id.codSoc}/${personnel.id.matPers}`]);
+  }
+
   deletePersonnel(personnel: Personnel): void {
     if (confirm(`Confirmez-vous la suppression de ${personnel.nomPers} ${personnel.prenPers} ?`)) {
       this.personnelService.delete(personnel.id).subscribe({

@@ -18,6 +18,7 @@ public class Personnel {
     private String cin;
     private String sexe;
     private String codSit;
+    private String phoneNumber; // New field
 
     @Temporal(TemporalType.DATE)
     private Date datSit;
@@ -175,6 +176,14 @@ public class Personnel {
 
     public void setCodSit(String codSit) {
         this.codSit = codSit;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Date getDatSit() {

@@ -39,8 +39,14 @@ public class PersonnelController {
     }
 
     @PostMapping
-    public Personnel create(@RequestBody Personnel personnel) {
-        return personnelService.save(personnel);
+    public ResponseEntity<Personnel> create(@RequestBody Personnel personnel) {
+        if (personnel.getId() == null || personnel.getId().getCodSoc() == null) {
+            return ResponseEntity.badRequest().body(null);
+        }
+        Personnel savedPersonnel = personnelService.save(personnel);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "Personnel created with matricule: " + savedPersonnel.getId().getMatPers())
+                .body(savedPersonnel);
     }
 
     @PutMapping
@@ -71,12 +77,12 @@ public class PersonnelController {
         title.setSpacingAfter(20f);
         document.add(title);
 
-        PdfPTable table = new PdfPTable(5);
+        PdfPTable table = new PdfPTable(6); // Increased to 6 for phoneNumber
         table.setWidthPercentage(100);
-        table.setWidths(new float[]{3, 3, 2, 2, 2});
+        table.setWidths(new float[]{3, 3, 2, 2, 2, 2}); // Adjusted widths
 
         Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.WHITE);
-        Stream.of("NOM", "PRÉNOM", "CIN", "MATRICULE", "RÔLE").forEach(header -> {
+        Stream.of("NOM", "PRÉNOM", "CIN", "MATRICULE", "RÔLE", "TÉLÉPHONE").forEach(header -> {
             PdfPCell cell = new PdfPCell();
             cell.setBackgroundColor(new BaseColor(33, 150, 243));
             cell.setPadding(8);
@@ -91,6 +97,7 @@ public class PersonnelController {
             addCell(table, p.getCin() != null ? p.getCin() : "-", dataFont);
             addCell(table, p.getId().getMatPers(), dataFont);
             addCell(table, p.getRole() != null ? p.getRole() : "-", dataFont);
+            addCell(table, p.getPhoneNumber() != null ? p.getPhoneNumber() : "-", dataFont);
         }
 
         document.add(table);

@@ -13,6 +13,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSnackBarModule } from '@angular/material/snack-bar'; // Ajout
 import { HttpClientModule } from '@angular/common/http';
 import { AdminCrudRoutingModule } from './admin-crud-routing.module';
 import { PersonnelListComponent } from './components/personnel-list/personnel-list.component';
@@ -32,7 +33,6 @@ import { ServiceFormComponent } from './components/service-form/service-form.com
     ReactiveFormsModule,
     HttpClientModule,
     AdminCrudRoutingModule,
-    
     MatTableModule,
     MatButtonModule,
     MatFormFieldModule,
@@ -44,7 +44,8 @@ import { ServiceFormComponent } from './components/service-form/service-form.com
     MatPaginatorModule,
     MatTooltipModule,
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSnackBarModule // Ajout
   ]
 })
 export class AdminCrudModule { }

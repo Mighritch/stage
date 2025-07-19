@@ -5,6 +5,7 @@ import { PersonnelService } from '../../services/personnel.service';
 import { ServiceService } from '../../services/service.service';
 import { Personnel, PersonnelId } from '../../models/personnel.models';
 import { ServiceE, ServiceId } from '../../models/service.model';
+import { MatSnackBar } from '@angular/material/snack-bar'; // Ajout pour les notifications
 
 @Component({
   selector: 'app-personnel-form',
@@ -21,10 +22,10 @@ import { ServiceE, ServiceId } from '../../models/service.model';
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Personnel ID</mat-label>
-        <input matInput formControlName="matPers" required>
-        <mat-error *ngIf="personnelForm.get('matPers')?.hasError('required')">
-          Personnel ID is required
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phoneNumber" placeholder="+1234567890">
+        <mat-error *ngIf="personnelForm.get('phoneNumber')?.hasError('pattern')">
+          Please enter a valid international phone number (e.g., +1234567890)
         </mat-error>
       </mat-form-field>
       <mat-form-field>
@@ -273,11 +274,12 @@ export class PersonnelFormComponent implements OnInit {
     private personnelService: PersonnelService,
     private serviceService: ServiceService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar // Ajout pour les notifications
   ) {
     this.personnelForm = this.fb.group({
       codSoc: ['', Validators.required],
-      matPers: ['', Validators.required],
+      phoneNumber: ['', [Validators.pattern('\\+\\d{10,15}')]], // Validation stricte pour le format international
       nomPers: ['', Validators.required],
       prenPers: ['', Validators.required],
       nomPersA: [''],
@@ -340,7 +342,7 @@ export class PersonnelFormComponent implements OnInit {
         next: (personnel) => {
           this.personnelForm.patchValue({
             codSoc: personnel.id.codSoc,
-            matPers: personnel.id.matPers,
+            phoneNumber: personnel.phoneNumber || '',
             nomPers: personnel.nomPers,
             prenPers: personnel.prenPers,
             nomPersA: personnel.nomPersA || '',
@@ -397,9 +399,10 @@ export class PersonnelFormComponent implements OnInit {
       const personnel: Personnel = {
         id: {
           codSoc: formValue.codSoc,
-          matPers: formValue.matPers,
+          matPers: this.isEdit ? this.route.snapshot.paramMap.get('matPers') || '' : '', // Conserver matPers pour l'édition
           codServ: selectedService?.id.codServ || ''
         },
+        phoneNumber: formValue.phoneNumber || null,
         nomPers: formValue.nomPers,
         prenPers: formValue.prenPers,
         nomPersA: formValue.nomPersA || null,
@@ -444,11 +447,18 @@ export class PersonnelFormComponent implements OnInit {
         : this.personnelService.create(personnel);
 
       request.subscribe({
-        next: () => {
-          this.router.navigate(['/personnels']);
+        next: (response) => {
+          const message = this.isEdit
+            ? 'Personnel updated successfully.'
+            : 'Personnel created successfully. SMS sent with matricule if phone number provided.';
+          this.snackBar.open(message, 'Close', { duration: 3000 });
+          this.router.navigate(['/admin/personnels']);
         },
         error: (err) => {
-          this.errorMessage = 'Failed to save personnel.';
+          const errorMessage = err.error?.message?.includes('SMS')
+            ? 'Personnel saved, but failed to send SMS: ' + err.error.message
+            : 'Failed to save personnel.';
+          this.snackBar.open(errorMessage, 'Close', { duration: 5000 });
           console.error('Error saving personnel:', err);
         }
       });
@@ -456,6 +466,6 @@ export class PersonnelFormComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/personnels']);
+    this.router.navigate(['/admin/personnels']);
   }
 }

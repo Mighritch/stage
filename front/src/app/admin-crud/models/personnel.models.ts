@@ -8,6 +8,7 @@ export interface PersonnelId {
 
 export interface Personnel {
   id: PersonnelId;
+  phoneNumber?: string | null;
   nomPers: string;
   prenPers: string;
   nomPersA?: string | null;

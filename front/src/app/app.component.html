@@ -1,10 +1,15 @@
 <mat-toolbar color="primary">
-  <span>Application Admin</span>
+  <span>Gestion du Personnel</span>
 
-  <!-- Menu visible seulement quand connecté -->
-  <nav *ngIf="isAuthenticated()" class="nav-links">
-    <a mat-button routerLink="/admin/personnels" routerLinkActive="active-link">Personnel</a>
+  <!-- Menu admin -->
+  <nav *ngIf="isAdmin()" class="nav-links">
+    <a mat-button routerLink="/admin/personnels" routerLinkActive="active-link">Gestion Personnel</a>
     <a mat-button routerLink="/admin/services" routerLinkActive="active-link">Services</a>
+  </nav>
+
+  <!-- Menu personnel -->
+  <nav *ngIf="isPersonnel()" class="nav-links">
+    <a mat-button routerLink="/personnel/dashboard" routerLinkActive="active-link">Mon Espace</a>
   </nav>
 
   <span class="spacer"></span>

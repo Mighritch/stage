@@ -162,6 +162,7 @@ public class Personnel {
         this.cin = cin;
     }
 
+
     public String getSexe() {
         return sexe;
     }

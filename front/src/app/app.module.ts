@@ -5,10 +5,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminCrudModule } from './admin-crud/admin-crud.module';
-import { AuthModule } from './auth/auth.module'; // Nouveau module d'authentification
+import { AuthModule } from './auth/auth.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,15 +19,13 @@ import { MatIconModule } from '@angular/material/icon';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    AuthModule, // Ajout du module d'authentification
+    AuthModule,
     AdminCrudModule,
-     MatToolbarModule,
+    MatToolbarModule,
     MatButtonModule,
     MatIconModule
   ],
-  providers: [
-    // Ajoutez vos services globaux ici si nécessaire
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

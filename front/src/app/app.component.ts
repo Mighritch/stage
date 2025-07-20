@@ -15,9 +15,26 @@ export class AppComponent {
     return this.authService.isAuthenticated();
   }
 
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
+  isPersonnel(): boolean {
+    return this.authService.isPersonnel();
+  }
+
   getUsername(): string {
     const admin = this.authService.getCurrentAdmin();
-    return admin ? `${admin.prenom} ${admin.nom}` : '';
+    if (admin) {
+      return `${admin.prenom} ${admin.nom}`;
+    }
+    
+    const personnel = this.authService.getCurrentPersonnel();
+    if (personnel) {
+      return `${personnel.prenPers} ${personnel.nomPers}`;
+    }
+    
+    return '';
   }
 
   logout(): void {

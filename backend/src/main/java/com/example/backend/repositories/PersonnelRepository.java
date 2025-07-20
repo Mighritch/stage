@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PersonnelRepository extends JpaRepository<Personnel, PersonnelId> {
-
+    Personnel findByCin(String cin);
 }

@@ -1,0 +1,31 @@
+<div class="dashboard-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Mon Espace Personnel</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="personnel" class="info-grid">
+        <div class="info-item">
+          <span class="info-label">Nom:</span>
+          <span class="info-value">{{personnel.nomPers}}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Prénom:</span>
+          <span class="info-value">{{personnel.prenPers}}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">CIN:</span>
+          <span class="info-value">{{personnel.cin}}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Matricule:</span>
+          <span class="info-value">{{personnel.id.matPers}}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Rôle:</span>
+          <span class="info-value">{{personnel.role || 'Non spécifié'}}</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
